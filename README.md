@@ -268,8 +268,7 @@ cp rm_PK.auth PK.auth KEK.auth db.auth /efi/keys
 
 # Enroll your keys. Method will varies depending on your firmware.
 # /!\ Enroll your own PK *last*, as this action activates Secure Boot.
-# If the firmware co
-mplains about enrolling your own PK, enroll rm_PK.auth first to set Secure Boot in setup mode, then enroll PK.auth
+# If the firmware complains about enrolling your own PK, enroll rm_PK.auth first to set Secure Boot in setup mode, then enroll PK.auth
 
 # Example for x64 architecture with KeyTool
 sbsign --key db.key --cert db.crt --output /<some mounted FAT32 flash drive>/EFI/BOOT/BOOTX64.EFI /usr/share/efitools/efi/KeyTool.efi
