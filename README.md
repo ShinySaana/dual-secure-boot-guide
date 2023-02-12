@@ -3,7 +3,7 @@
 Guide mostly written by @ShinySaana.
 Steps mostly figured out by @LunarLambda.
 
-> Note: This guide was written by ~~nerds~~ enthusiasts who wanted a reasonably secure system for their own use case. Follow this guide as your own risks, obviously neither warranty nor support is provided. It mostly worked on two of our machine, so this is obviously not extensive. This guide also assumes some knowledge about Arch Linux installation, booting from ISOs, and so on.
+> Note: This guide was written by ~~nerds~~ enthusiasts who wanted a reasonably secure system for their own use case. Follow this guide as your own risks, obviously neither warranty nor support is provided. It mostly worked on two of our machines, so this is obviously not extensive. This guide also assumes some knowledge about Arch Linux installation, booting from ISOs, and so on.
 
 ## Terraform your disk
 
