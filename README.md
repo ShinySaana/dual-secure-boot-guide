@@ -42,8 +42,8 @@ Steps mostly figured out by @LunarLambda.
 	- UEFI:
 		- `mkfs.fat -F32 /dev/<UEFI partition>`
 	- Linux: (Following earlier example)
-		- `mkfs.ext4 /dev/<lvmLinuxName>/root
-		- `mkfs.ext4 /dev/<lvmLinuxName>/home
+		- `mkfs.ext4 /dev/<lvmLinuxName>/root`
+		- `mkfs.ext4 /dev/<lvmLinuxName>/home`
 	- Windows:
 		> Windows installer needs its boot partition to be NTFS **even before** it even tries to read it, *even if only to format it directly afterwards*. **Yeah**.
 		- `pacman -S ntfs-3g`
