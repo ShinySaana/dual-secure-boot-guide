@@ -67,12 +67,13 @@ Steps mostly figured out by @LunarLambda.
 
 - pacman mirror list should be auto generated when connected to the network; you can ensure this with `cat /etc/pacman.d/mirrorlist`; if not, trouble shoot that. We had no issue with it, so if it's not there, good luck?
 - `pacstrap -K /mnt base linux linux-firmware` for essential packages
+- `pacman -S extra/arch-install-scripts`
 - `genstab -U /mnt >> /mnt/etc/fstab` 
 - `arch-chroot /mnt`
 	- install your packages, at least a text editor (not included by default now!) and lvm2 if you used LVM earlier. Example:
 		- `neovim zsh sudo networkmanager lvm2 (intel/amd)-ucode git`
-	 - `ln -sf /ush/share/zoneinfo/<region>/<city> /etc/localtime 
-	 - `hwclock --systohc`
+	 - `ln -sf /ush/share/zoneinfo/<region>/<city> /etc/localtime`
+	 - `hwclock --systohc --utc`
 		> Yes, Windows will fuck it up. Fix it in Windows later rather than in Linux, it's Windows who's wrong :c
 	- setup your locales
 		- `vim /etc/locale.gen`
@@ -179,7 +180,7 @@ cd /etc/secureboot
 uuidgen --random > GUID.txt
 
 # Generate the Platform Key
-openssl req -newkey rsa:4096 -nodes -keyout PK.key -new -x509 -sha256 -days _3650_ -subj "/CN=<my Platform Key>/" -out PK.crt
+openssl req -newkey rsa:4096 -nodes -keyout PK.key -new -x509 -sha256 -days 3650 -subj "/CN=<my Platform Key>/" -out PK.crt
 openssl x509 -outform DER -in PK.crt -out PK.cer
 cert-to-efi-sig-list -g "$(< GUID.txt)" PK.crt PK.esl
 sign-efi-sig-list -g "$(< GUID.txt)" -k PK.key -c PK.crt PK PK.esl PK.auth
@@ -188,13 +189,13 @@ sign-efi-sig-list -g "$(< GUID.txt)" -k PK.key -c PK.crt PK PK.esl PK.auth
 sign-efi-sig-list -g "$(< GUID.txt)" -c PK.crt -k PK.key PK /dev/null rm_PK.auth
 
 # Generate the Key Exchange Key
-openssl req -newkey rsa:4096 -nodes -keyout KEK.key -new -x509 -sha256 -days _3650_ -subj "/CN=<my Key Exchange Key>/" -out KEK.crt
+openssl req -newkey rsa:4096 -nodes -keyout KEK.key -new -x509 -sha256 -days 3650 -subj "/CN=<my Key Exchange Key>/" -out KEK.crt
 openssl x509 -outform DER -in KEK.crt -out KEK.cer
 cert-to-efi-sig-list -g "$(< GUID.txt)" KEK.crt KEK.esl
 sign-efi-sig-list -g "$(< GUID.txt)" -k PK.key -c PK.crt KEK KEK.esl KEK.auth
 
 # Generate the Database Key
-openssl req -newkey rsa:4096 -nodes -keyout db.key -new -x509 -sha256 -days _3650_ -subj "/CN=<my Signature Database key>/" -out db.crt
+openssl req -newkey rsa:4096 -nodes -keyout db.key -new -x509 -sha256 -days 3650 -subj "/CN=<my Signature Database key>/" -out db.crt
 openssl x509 -outform DER -in db.crt -out db.cer
 cert-to-efi-sig-list -g "$(< GUID.txt)" db.crt db.esl
 sign-efi-sig-list -g "$(< GUID.txt)" -k KEK.key -c KEK.crt db db.esl db.auth
@@ -258,10 +259,11 @@ nvim /etc/pacman.d/hooks/99-sbsign-systemd.hook
 	NeedsTargets
 
 
-systemctl enable --now systemd-boot-update.service
-
 # Trigger a dummy update to trigger the above hooks
 pacman -S linux systemd
+bootctl install
+systemctl enable --now systemd-boot-update.service
+
 
 
 # Make your own keys available to your firmware for enrollment
@@ -269,8 +271,12 @@ mkdir -p /efi/keys
 cp rm_PK.auth PK.auth KEK.auth db.auth /efi/keys
 
 # Enroll your keys. Method will varies depending on your firmware.
+
 # /!\ Enroll your own PK *last*, as this action activates Secure Boot.
-# If the firmware complains about enrolling your own PK, enroll rm_PK.auth first to set Secure Boot in setup mode, then enroll PK.auth
+# If the firmware complains about enrolling your own PK, enroll rm_PK.auth first to set Secure Boot in setup mode, then enroll PK.auth  
+
+# /!\ On some systems, removing the OEM keys can break stuff. You can dump them if needed and sign them with your own keys as shown for the Microsoft's ones.
+
 
 # Example for x64 architecture with KeyTool
 sbsign --key db.key --cert db.crt --output /<some mounted FAT32 flash drive>/EFI/BOOT/BOOTX64.EFI /usr/share/efitools/efi/KeyTool.efi
