@@ -9,7 +9,7 @@ Steps mostly figured out by @LunarLambda.
 
 ## Terraform your disk
 
-- Start from clean drive (or format it)
+- Start from clean drive (or format it during the fdisk step)
 - Boot from a standard ArchISO drive
 - Connect to the internet (ethernet is prefered; wifi should be doable if drivers are available in the ArchISO image,see https://wiki.archlinux.org/title/Network_configuration/Wireless)
 	- You shoud be able to directly refer to the Arch Linux Installation Guide from this computer if needed
