@@ -5,6 +5,8 @@ Steps mostly figured out by @LunarLambda.
 
 > Note: This guide was written by ~~nerds~~ enthusiasts who wanted a reasonably secure system for their own use case. Follow this guide at your own risks, obviously neither warranty nor support is provided. It mostly worked on two of our machines, so this is obviously not extensive. This guide also assumes some knowledge about Arch Linux installation, booting from ISOs, and so on.
 
+> Note: Can most probably be adapted for Manjaro. See https://forum.manjaro.org/t/root-tip-how-to-do-a-manual-manjaro-installation/12507 for more informations. You'd probably need to adapt the steps described depending on your needs.
+
 ## Terraform your disk
 
 - Start from clean drive (or format it)
