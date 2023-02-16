@@ -87,8 +87,8 @@ Steps mostly figured out by @LunarLambda.
 		> Note: GRUB can be... janky, with this setup, and maybe too feature bloated for the "I would like a menu to choose which OS to boot please" use case. This guide will therefore use systemd-boot because it's a much more simple, "straight to the point" bootloader, supporting LUKS2 encryption, perfect for our use case.
 		- `vim /etc/mkinitcpio.conf`
 			- `HOOKS=(base systemd autodetect modconf kms keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)`, in this order.
-		`vim /etc/kernel/cmdline`
-			`loglevel=3 rw root=/dev/<lvmLinuxName>/root rd.luks.name=<UUID of Linux Partition >=<deviceNameLinux>`
+		- `vim /etc/kernel/cmdline`
+			- `loglevel=3 rw root=/dev/<lvmLinuxName>/root rd.luks.name=<UUID of Linux Partition >=<deviceNameLinux>`
 		- Setup a unified kernel image (UKIs are weird but also quite nice) (conveniently easy to sign for Secure Boot later)
 			- `vim /etc/mkinitcpio.d/linux.preset`
 				- add `ALL_microcode=(/boot/*-ucode.img)`
