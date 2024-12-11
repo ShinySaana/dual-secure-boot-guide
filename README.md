@@ -68,9 +68,11 @@ Steps mostly figured out by @LunarLambda.
 ## Install Arch Linux
 
 - pacman mirror list should be auto generated when connected to the network; you can ensure this with `cat /etc/pacman.d/mirrorlist`; if not, trouble shoot that. We had no issue with it, so if it's not there, good luck?
+- `pacman -Syy`
+- `pacman -S archlinux-keyring`
 - `pacstrap -K /mnt base linux linux-firmware` for essential packages
 - `pacman -S extra/arch-install-scripts`
-- `genstab -U /mnt >> /mnt/etc/fstab` 
+- `genfstab -U /mnt >> /mnt/etc/fstab` 
 - `arch-chroot /mnt`
 	- install your packages, at least a text editor (not included by default now!) and lvm2 if you used LVM earlier. Example:
 		- `neovim zsh sudo networkmanager lvm2 (intel/amd)-ucode git`
@@ -88,15 +90,15 @@ Steps mostly figured out by @LunarLambda.
 	- Boot loader time!
 		> Note: GRUB can be... janky, with this setup, and maybe too feature bloated for the "I would like a menu to choose which OS to boot please" use case. This guide will therefore use systemd-boot because it's a much more simple, "straight to the point" bootloader, supporting LUKS2 encryption, perfect for our use case.
 		- `vim /etc/mkinitcpio.conf`
-			- `HOOKS=(base systemd autodetect modconf kms keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)`, in this order.
+			- `HOOKS=(base systemd autodetect modconf kms keyboard keymap consolefont sd-vconsole block sd-encrypt lvm2 filesystems fsck)`, in this order.
 		- `vim /etc/kernel/cmdline`
 			- `loglevel=3 rw root=/dev/<lvmLinuxName>/root rd.luks.name=<UUID of Linux Partition >=<deviceNameLinux>`
 		- Setup a unified kernel image (UKIs are weird but also quite nice) (conveniently easy to sign for Secure Boot later)
-			- `vim /etc/mkinitcpio.d/linux.preset`
+			- `vim /etc/mkinitcpio.d/arch-linux.preset`
 				- add `ALL_microcode=(/boot/*-ucode.img)`
 				- add `default_uki="/efi/EFI/Linux/arch.efi"`
-			- `mkdir /efi/EFI/Linux`
-			- `mkinitcpio -p <deviceNameLinux>`
+			- `mkdir -p /efi/EFI/Linux`
+			- `mkinitcpio -p arch-linux`
 		`bootctl install`
 `reboot` !
 
