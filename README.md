@@ -3,6 +3,8 @@
 Guide mostly written by @ShinySaana.
 Steps mostly figured out by @LunarLambda.
 
+> Why is this a full git repo and not a gist? Because issues and PRs are welcome.
+
 > Update 27/03/2023: so apparently a bookit called ["BlackLotus"](https://arstechnica.com/information-technology/2023/03/unkillable-uefi-malware-bypassing-secure-boot-enabled-by-unpatchable-windows-flaw/) is in the wild? This would bypass the security provided by this guide, even moreso since Microsoft does not seem to be adding their vulnerable bootloaders to the revocation list. A possible solution would be to bypass Microsoft's keys entirely and resign the current Windows bootloader from Arch with each and every update Windows update, and doing so after checking that the booloader isn't vulnerable manually... This seems like a mess. 
 
 > Note: This guide was written by ~~nerds~~ enthusiasts who wanted a reasonably secure system for their own use case. Follow this guide at your own risks, obviously neither warranty nor support is provided. It mostly worked on two of our machines, so this is obviously not extensive. This guide also assumes some knowledge about Arch Linux installation, booting from ISOs, and so on.
