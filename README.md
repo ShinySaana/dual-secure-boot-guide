@@ -164,10 +164,14 @@ Steps mostly figured out by @LunarLambda.
 	- Change "Not Configured" to "Enabled".
 	- Forbid TPM in the below drop-down menu.
 
-- Bitlocker time!
-	- Settings => Manage Bitlocker
-	- Follow the GUI. Set up a password, (and only a password, should that be your wish) while also getting your recovery keys offline to a USB drive (or synced to a Microsoft, should that again be your wish)
+   	- Open: Allow enhanced PINs for startup
+   	- Change "Not Configured" to "Enabled"
 
+   	- Open: Configure use of passwords for operating system drives
+   	- Change "Not Configured" to "Enabled"
+
+ 	- In an admin shell, `manage-bde.exe -on C: -password`. Follow instructions.
+	
 ## OPTIONAL: Sanity check to read the Windows drives offline
 
 - boot into linux
