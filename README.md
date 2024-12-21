@@ -1,4 +1,4 @@
-# Multiboot Arch Linux / Windows with Secure Boot (as of 12/02/2023)
+# Multiboot Arch Linux / Windows with Secure Boot (as of 12/02/2023, somewhat revised in 12/2024)
 
 Guide mostly written by @ShinySaana.
 Steps mostly figured out by @LunarLambda.
