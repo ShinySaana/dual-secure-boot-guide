@@ -171,6 +171,8 @@ Steps mostly figured out by @LunarLambda.
    	- Change "Not Configured" to "Enabled"
 
  	- In an admin shell, `manage-bde.exe -on C: -password`. Follow instructions.
+ 
+> If you have other drives you wish to encrypt, repeat this command.
 	
 ## OPTIONAL: Sanity check to read the Windows drives offline
 
